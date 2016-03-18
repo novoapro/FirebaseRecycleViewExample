@@ -10,6 +10,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.annotations.Nullable;
@@ -17,8 +18,9 @@ import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.manpdev.firebaseexample.R;
 
 import java.util.Calendar;
+import java.util.Locale;
 
-public class TaskActivity extends AppCompatActivity implements TaskItemListener{
+public class TaskActivity extends AppCompatActivity implements TaskItemListener {
 
     private Firebase mRef;
     private FirebaseRecyclerAdapter<TaskModel, TaskItemViewHolder> mTaskAdapter;
@@ -115,17 +117,14 @@ public class TaskActivity extends AppCompatActivity implements TaskItemListener{
         final CheckBox criticalCheck = (CheckBox) root.findViewById(R.id.critical_ch);
 
         final TaskModel model;
-        final boolean isNew;
 
-        if(task != null){
+        if (task != null) {
             model = task;
             nameField.setText(task.getName());
             noteField.setText(task.getNotes());
             criticalCheck.setChecked(task.isCritical());
-            isNew = false;
-        }else{
+        } else {
             model = new TaskModel();
-            isNew = true;
         }
 
         builder.setView(root)
@@ -138,10 +137,14 @@ public class TaskActivity extends AppCompatActivity implements TaskItemListener{
                         model.setNotes(noteField.getText().toString());
                         model.setCritical(criticalCheck.isChecked());
 
-                        if(isNew) {
+                        if (ref == null) {
                             model.setDate(Calendar.getInstance().getTime());
-                            mRef.push().setValue(model);
-                        }else if(ref != null){
+                            Firebase refNew = mRef.push();
+                            refNew.setValue(model);
+                            Toast.makeText(TaskActivity.this, String.format(Locale.US, "Created with Id : %s", refNew.getKey()), Toast.LENGTH_LONG).show();
+
+                        } else {
+                            Toast.makeText(TaskActivity.this, String.format(Locale.US, "Updated : %s", ref.getKey()), Toast.LENGTH_LONG).show();
                             ref.setValue(model);
                         }
                     }
