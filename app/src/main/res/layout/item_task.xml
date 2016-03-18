@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    android:padding="5dp"
+    android:id="@+id/task_item_container"
+    tools:context=".task.TaskActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@android:color/background_light"
+        android:elevation="3dp">
+
+        <TextView
+            android:id="@+id/tv_task_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/tv_task_date"
+            android:maxLines="2"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_task_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="false"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/iv_critical_icon"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:id="@+id/iv_critical_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_flash_on_black_24dp"
+            android:visibility="invisible"
+            android:contentDescription="" />
+
+        <TextView
+            android:id="@+id/tv_task_notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tv_task_name"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/iv_critical_icon"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </RelativeLayout>
+</FrameLayout>
